@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Extremo de Lógica do Bolsonaro</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .gold-border {
+            border-color: #f59e0b;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+        .glow-red {
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+        }
+        .btn-action {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+        .btn-action:active {
+            transform: translateY(1px);
+        }
+        .avatar-fit {
+            object-fit: cover;
+            object-position: center top;
+        }
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .timer-warning {
+            animation: pulse-fast 0.8s infinite;
+            color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex flex-col justify-between p-3 sm:p-6 min-h-screen">
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto w-full text-center my-2 sm:my-4">
+        <div class="inline-flex items-center gap-2 bg-slate-800/90 border border-emerald-500/40 px-4 py-1.5 rounded-full shadow-md mb-2">
+            <span class="text-xl">🇧🇷</span>
+            <span class="text-xs font-bold tracking-wider text-emerald-400 uppercase">Operação Raciocínio Estratégico</span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-white mb-1">
+            Desafio Lógico do <span class="text-yellow-400">Bolsonaro</span>
+        </h1>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto">
+            Testes intensos de sequências, dedução de premissas, combinatória e tabelas verdade!
+        </p>
+    </header>
+
+    <main class="max-w-3xl mx-auto w-full my-auto">
+        <!-- Tela de Seleção de Nível -->
+        <div id="screen-select" class="bg-slate-800/95 border border-slate-700/80 rounded-2xl p-5 sm:p-8 glow-emerald backdrop-blur-md">
+            
+            <!-- Hero Avatar Bolsonaro -->
+            <div class="flex flex-col sm:flex-row items-center gap-5 bg-slate-900/80 p-5 rounded-xl border border-slate-700/60 mb-6">
+                <div class="relative w-28 h-28 rounded-full border-4 border-yellow-400 shadow-xl overflow-hidden flex-shrink-0 bg-slate-950 flex items-center justify-center">
+                    <img id="intro-avatar" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Jair_Bolsonaro_in_2023.jpg/480px-Jair_Bolsonaro_in_2023.jpg" alt="Bolsonaro" class="w-full h-full avatar-fit" onerror="this.onerror=null; this.src='https://placehold.co/150x150/009c3b/ffffff?text=Jair+Bolsonaro';">
+                </div>
+                <div class="text-center sm:text-left">
+                    <span class="inline-block bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full mb-1">
+                        Comandante em Chefe
+                    </span>
+                    <h2 class="text-xl font-bold text-white mb-1">Pronto para o Teste de Inteligência, Patriota?</h2>
+                    <p class="text-slate-300 text-xs sm:text-sm italic">
+                        "Ajustamos o treinamento, tá ok? Agora tá mais acessível e no ponto pra você mandar bem!"
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3 text-center sm:text-left">
+                Selecione o Grau de Dificuldade:
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Nível Fácil -->
+                <button onclick="startGame('facil')" class="btn-action bg-slate-900/80 hover:bg-emerald-950/50 border-2 border-emerald-500/60 hover:border-emerald-400 p-5 rounded-xl text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">🟢</span>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">9 QUESTÕES</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-emerald-400 mb-1">Nível Recruta (Fácil)</h4>
+                        <p class="text-xs text-slate-400 mb-3">Lógica básica, sequências simples e deduções diretas.</p>
+                    </div>
+                    <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 flex items-center gap-1">
+                        <i class="fa-solid fa-clock text-emerald-400"></i> 45s por pergunta
+                    </div>
+                </button>
+
+                <!-- Nível Médio -->
+                <button onclick="startGame('medio')" class="btn-action bg-slate-900/80 hover:bg-yellow-950/50 border-2 border-yellow-500/60 hover:border-yellow-400 p-5 rounded-xl text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">🟡</span>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300">9 QUESTÕES</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-yellow-400 mb-1">Nível Capitão (Médio)</h4>
+                        <p class="text-xs text-slate-400 mb-3">Raciocínio intermediário, sequências e negações simples.</p>
+                    </div>
+                    <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 flex items-center gap-1">
+                        <i class="fa-solid fa-clock text-yellow-400"></i> 35s por pergunta
+                    </div>
+                </button>
+
+                <!-- Nível Difícil -->
+                <button onclick="startGame('dificil')" class="btn-action bg-slate-900/80 hover:bg-red-950/50 border-2 border-red-500/60 hover:border-red-400 p-5 rounded-xl text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">🔴</span>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-red-500/20 text-red-300">9 QUESTÕES</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-red-400 mb-1">Nível Comandante (Desafio)</h4>
+                        <p class="text-xs text-slate-400 mb-3">Charadas e problemas de lógica para testar seus limites.</p>
+                    </div>
+                    <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 flex items-center gap-1">
+                        <i class="fa-solid fa-clock text-red-400"></i> 30s por pergunta
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo (Quiz Active) -->
+        <div id="screen-quiz" class="hidden bg-slate-800/95 border border-slate-700/80 rounded-2xl p-5 sm:p-7 glow-emerald backdrop-blur-md">
+            
+            <!-- Barra de Status Superior -->
+            <div class="flex flex-wrap items-center justify-between border-b border-slate-700/80 pb-3 mb-4 gap-2 text-xs sm:text-sm">
+                <div class="flex items-center gap-2">
+                    <span id="level-badge" class="px-2.5 py-1 rounded-full font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                        Nível
+                    </span>
+                    <span id="question-progress" class="text-slate-400 font-semibold">
+                        Questão 1/9
+                    </span>
+                </div>
+
+                <!-- Vidas, Timer e Placar -->
+                <div class="flex items-center gap-4">
+                    <!-- Vidas -->
+                    <div id="lives-container" class="flex items-center gap-1 text-red-500 text-base">
+                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+
+                    <!-- Timer -->
+                    <div class="flex items-center gap-1.5 font-mono font-bold bg-slate-900 px-3 py-1 rounded-lg border border-slate-700">
+                        <i class="fa-solid fa-stopwatch text-slate-400"></i>
+                        <span id="timer-text" class="text-yellow-400">30s</span>
+                    </div>
+
+                    <!-- Pontuação e Combo -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-400">Pts: <strong id="score-text" class="text-yellow-400">0</strong></span>
+                        <span id="combo-badge" class="hidden bg-yellow-400 text-slate-900 font-black text-[10px] px-2 py-0.5 rounded-full animate-bounce">
+                            2x COMBO
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar e Balão Dinâmico de Reação do Bolsonaro -->
+            <div class="flex items-center gap-3 sm:gap-4 bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/70 mb-5">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-yellow-400 p-0.5 flex-shrink-0 shadow-lg overflow-hidden bg-slate-950 flex items-center justify-center">
+                    <img id="bolsonaro-avatar" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Jair_Bolsonaro_in_2023.jpg/480px-Jair_Bolsonaro_in_2023.jpg" alt="Bolsonaro" class="w-full h-full avatar-fit" onerror="this.onerror=null; this.src='https://placehold.co/150x150/009c3b/ffffff?text=Jair+Bolsonaro';">
+                </div>
+                <div class="relative bg-slate-800 p-3 rounded-xl border border-slate-600 text-xs sm:text-sm text-slate-200 w-full shadow-inner">
+                    <p id="bolsonaro-quote" class="italic font-semibold text-yellow-300">
+                        "Vai no seu ritmo, tá ok? O importante é raciocinar com calma!"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Enunciado do Desafio -->
+            <div class="mb-5">
+                <h3 id="question-text" class="text-base sm:text-lg font-bold text-white mb-3 leading-snug">
+                    Carregando pergunta...
+                </h3>
+                <div id="question-extra" class="text-xs sm:text-sm text-slate-300 bg-slate-900/60 p-3.5 rounded-lg font-mono border border-slate-700/80 hidden">
+                    <!-- Conteúdo extra/equação da pergunta -->
+                </div>
+            </div>
+
+            <!-- Opções de Resposta -->
+            <div id="options-container" class="grid grid-cols-1 gap-2.5">
+                <!-- Opções injetadas via JavaScript -->
+            </div>
+
+            <!-- Botão de Dica -->
+            <div class="flex justify-between items-center mt-4">
+                <button id="hint-btn" onclick="useHint()" class="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1.5 font-semibold bg-yellow-400/10 hover:bg-yellow-400/20 px-3 py-1.5 rounded-lg border border-yellow-400/30 transition-all">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>Usar Dica Estratégica (<span id="hint-count">1</span> restante)</span>
+                </button>
+            </div>
+
+            <!-- Caixa de Feedback/Explicação -->
+            <div id="feedback-box" class="hidden mt-4 p-4 rounded-xl text-xs sm:text-sm font-medium leading-relaxed transition-all border"></div>
+
+            <!-- Botão Avançar -->
+            <div class="mt-5 flex justify-end">
+                <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 px-6 rounded-xl shadow-lg flex items-center gap-2 text-sm">
+                    <span>Avançar para a Próxima</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela de Fim de Jogo (Resultados / Game Over) -->
+        <div id="screen-results" class="hidden bg-slate-800/95 border border-slate-700/80 rounded-2xl p-6 sm:p-8 glow-emerald backdrop-blur-md text-center">
+            <div id="result-icon" class="text-6xl mb-3">🏆</div>
+            <h2 id="result-title" class="text-2xl sm:text-3xl font-black text-white mb-1">Missão Cumprida!</h2>
+            <p id="result-subtitle" class="text-slate-300 text-xs sm:text-sm mb-6">Você completou o treinamento de raciocínio lógico!</p>
+
+            <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/80 max-w-sm mx-auto mb-6 shadow-inner">
+                <p class="text-slate-400 text-[10px] font-extrabold uppercase tracking-widest mb-1">Pontuação Final Conquistada</p>
+                <div class="text-4xl font-black text-yellow-400 mb-1">
+                    <span id="final-score">0</span> pts
+                </div>
+                <p id="final-stats" class="text-xs text-emerald-400 font-bold">Acertos: 0/9 • Maior Combo: 0x</p>
+            </div>
+
+            <!-- Imagem de Selo / Medalha -->
+            <div id="rank-badge" class="inline-block bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs px-4 py-2 rounded-full mb-6">
+                Patriota de Raciocínio Lógico
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-3">
+                <button onclick="resetGame()" class="btn-action bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Menu Principal</span>
+                </button>
+                <button id="retry-btn" onclick="retryLevel()" class="btn-action bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 px-6 rounded-xl text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Tentar Novamente</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-4xl mx-auto w-full text-center my-3 text-[11px] text-slate-500">
+        Jogo de Raciocínio Lógico e Matemática Discreta • Brasil 🇧🇷
+    </footer>
+
+    <script>
+        const AVATARS = {
+            neutral: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Jair_Bolsonaro_in_2023.jpg/480px-Jair_Bolsonaro_in_2023.jpg",
+            happy: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Jair_Bolsonaro_portrait_2019.jpg/400px-Jair_Bolsonaro_portrait_2019.jpg",
+            thinking: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Jair_Bolsonaro_in_2023.jpg/480px-Jair_Bolsonaro_in_2023.jpg",
+            shocked: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Jair_Bolsonaro_November_2019.jpg/400px-Jair_Bolsonaro_November_2019.jpg"
+        };
+
+        let screenSelect, screenQuiz, screenResults;
+        let levelBadge, questionProgress, livesContainer, timerText, scoreText, comboBadge;
+        let bolsonaroAvatar, bolsonaroQuote, questionText, questionExtra, optionsContainer;
+        let hintBtn, hintCount, feedbackBox, nextBtn;
+
+        let currentLevel = 'facil';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let combo = 0;
+        let maxCombo = 0;
+        let lives = 4;
+        let hintsLeft = 2;
+        let timerInterval = null;
+        let timeLeft = 0;
+        let answered = false;
+
+        // BANCO DE PERGUNTAS FACILITADO E REESTRUTURADO
+        const questionsDatabase = {
+            facil: [
+                {
+                    quote: "Essa é tranquila para esquentar o cérebro, tá ok?",
+                    question: "Observe a sequência simples: 2, 4, 6, 8, 10, __. Qual é o próximo número?",
+                    extra: "Dica: A sequência aumenta de 2 em 2.",
+                    options: ["11", "12", "14", "16"],
+                    answer: 1,
+                    explanation: "Solução: Adicionando 2 ao último número (10 + 2), temos 12."
+                },
+                {
+                    quote: "Cuidado para não trocar o dia da semana!",
+                    question: "Se hoje é sexta-feira, que dia será amanhã?",
+                    extra: null,
+                    options: ["Domingo", "Quinta-feira", "Sábado", "Segunda-feira"],
+                    answer: 2,
+                    explanation: "Solução: O dia seguinte à sexta-feira é sábado."
+                },
+                {
+                    quote: "Raciocínio simples sobre contagem do comboio!",
+                    question: "Um comboio tem 5 carros pretos e 3 carros amarelos. Quantos carros há no total?",
+                    extra: null,
+                    options: ["7 carros", "8 carros", "9 carros", "10 carros"],
+                    answer: 1,
+                    explanation: "Solução: 5 + 3 = 8 carros no total."
+                },
+                {
+                    quote: "Presta atenção na ordem dos ministros na fila!",
+                    question: "Se Jair está atrás de Tarcísio e Tarcísio está atrás de Paulo, quem está na frente de todos?",
+                    extra: "Organize a fila da frente para trás.",
+                    options: ["Jair", "Tarcísio", "Paulo", "Ninguém"],
+                    answer: 2,
+                    explanation: "Solução: Paulo está na frente, Tarcísio atrás dele, e Jair no final."
+                },
+                {
+                    quote: "Padrão de cores da bandeira!",
+                    question: "A sequência é: Verde, Amarelo, Verde, Amarelo, __. Qual a próxima cor?",
+                    extra: null,
+                    options: ["Azul", "Branco", "Verde", "Amarelo"],
+                    answer: 2,
+                    explanation: "Solução: A sequência alterna entre Verde e Amarelo."
+                },
+                {
+                    quote: "Dedução rápida de idade!",
+                    question: "Jair tem 10 anos a mais que seu irmão. Se o irmão tem 20 anos, quantos anos Jair tem?",
+                    extra: null,
+                    options: ["25 anos", "30 anos", "35 anos", "40 anos"],
+                    answer: 1,
+                    explanation: "Solução: 20 + 10 = 30 anos."
+                },
+                {
+                    quote: "Subtração simples de passageiros da FAB!",
+                    question: "Um avião partiu com 50 passageiros. Em uma parada desceram 15. Quantos continuaram no avião?",
+                    extra: null,
+                    options: ["30 passageiros", "35 passageiros", "40 passageiros", "25 passageiros"],
+                    answer: 1,
+                    explanation: "Solução: 50 - 15 = 35 passageiros."
+                },
+                {
+                    quote: "Negação simples e direta!",
+                    question: "Qual é o oposto da frase: 'O dia está claro'?",
+                    extra: null,
+                    options: ["O dia está ensolarado", "O dia está escuro", "O dia está bonito", "O dia está longo"],
+                    answer: 1,
+                    explanation: "Solução: O oposto de claro é escuro."
+                },
+                {
+                    quote: "Para fechar o Nível Recruta com tranquilidade!",
+                    question: "Se 1 caneta custa R$ 2,00, quanto custam 5 canetas?",
+                    extra: null,
+                    options: ["R$ 8,00", "R$ 10,00", "R$ 12,00", "R$ 15,00"],
+                    answer: 1,
+                    explanation: "Solução: 5 × R$ 2,00 = R$ 10,00."
+                }
+            ],
+            medio: [
+                {
+                    quote: "Nível Capitão: Vamos subir um degrau leve!",
+                    question: "Qual o próximo número da sequência: 5, 10, 15, 20, 25, __?",
+                    extra: "Aumenta de 5 em 5.",
+                    options: ["28", "30", "35", "40"],
+                    answer: 1,
+                    explanation: "Solução: 25 + 5 = 30."
+                },
+                {
+                    quote: "Atenção ao cálculo do tempo de viagem!",
+                    question: "Se um passeio de motociata dura 1 hora e 30 minutos, quantos minutos durou o passeio?",
+                    extra: "Lembre-se: 1 hora = 60 minutos.",
+                    options: ["80 minutos", "90 minutos", "100 minutos", "120 minutos"],
+                    answer: 1,
+                    explanation: "Solução: 60 + 30 = 90 minutos."
+                },
+                {
+                    quote: "Regra de três simples!",
+                    question: "Se 2 bandeiras custam R$ 30,00, quanto custam 4 bandeiras?",
+                    extra: "O dobro de bandeiras custará o dobro do valor.",
+                    options: ["R$ 45,00", "R$ 50,00", "R$ 60,00", "R$ 70,00"],
+                    answer: 2,
+                    explanation: "Solução: 4 é o dobro de 2, logo 2 × R$ 30,00 = R$ 60,00."
+                },
+                {
+                    quote: "Negação lógica acessível!",
+                    question: "Qual é a negação de 'Todos os soldados são altos'?",
+                    extra: "Basta que exista pelo menos um que não seja.",
+                    options: [
+                        "Nenhum soldado é alto.",
+                        "Pelo menos um soldado não é alto.",
+                        "Todos os soldados são baixos.",
+                        "Alguns soldados são altos."
+                    ],
+                    answer: 1,
+                    explanation: "Solução: Para negar que 'todos são', basta que pelo menos um não seja."
+                },
+                {
+                    quote: "Contagem de grupos!",
+                    question: "Em uma reunião há 20 pessoas. Se metade são homens, quantas mulheres há na reunião?",
+                    extra: null,
+                    options: ["5", "10", "12", "15"],
+                    answer: 1,
+                    explanation: "Solução: Metade de 20 é 10."
+                },
+                {
+                    quote: "Sequência de multiplicação por 2!",
+                    question: "Qual é o próximo número da sequência: 3, 6, 12, 24, __?",
+                    extra: "Cada número é o dobro do anterior.",
+                    options: ["30", "36", "48", "50"],
+                    answer: 2,
+                    explanation: "Solução: O dobro de 24 é 48 (24 × 2)."
+                },
+                {
+                    quote: "Problema das idades relativas!",
+                    question: "Hoje Jair tem 60 anos e seu filho tem 30. Quantos anos o filho tinha quando Jair tinha 40 anos?",
+                    extra: "A diferença de idade entre eles é de 30 anos.",
+                    options: ["10 anos", "15 anos", "20 anos", "25 anos"],
+                    answer: 0,
+                    explanation: "Solução: Jair é 30 anos mais velho. Quando tinha 40, o filho tinha 40 - 30 = 10 anos."
+                },
+                {
+                    quote: "Dedução condicional simples!",
+                    question: "Se chover, a motociata é cancelada. Hoje choveu. O que aconteceu com a motociata?",
+                    extra: null,
+                    options: ["Aconteceu normalmente", "Foi cancelada", "Foi adiada para o ano que vem", "Não dá para saber"],
+                    answer: 1,
+                    explanation: "Solução: Como a condição (chover) ocorreu, a consequência (cancelamento) é certa."
+                },
+                {
+                    quote: "Calculando a média das notas!",
+                    question: "Um recruta tirou nota 8 na primeira prova e 10 na segunda prova. Qual é a média dele?",
+                    extra: "Média = Soma das notas dividido por 2.",
+                    options: ["8", "8.5", "9", "9.5"],
+                    answer: 2,
+                    explanation: "Solução: (8 + 10) ÷ 2 = 18 ÷ 2 = 9."
+                }
+            ],
+            dificil: [
+                {
+                    quote: "Nível Comandante: Agora exige um pouco mais de atenção!",
+                    question: "Determine o próximo número da sequência: 2, 5, 10, 17, 26, __?",
+                    extra: "Observe os aumentos: +3, +5, +7, +9...",
+                    options: ["33", "35", "37", "40"],
+                    answer: 2,
+                    explanation: "Solução: O próximo aumento deve ser +11. Logo, 26 + 11 = 37."
+                },
+                {
+                    quote: "A famosa charada dos mentirosos!",
+                    question: "Um guarda diz apenas a verdade e o outro diz apenas mentiras. Se o guarda verdadeiro diz 'O caminho A é seguro', o que o caminho A é?",
+                    extra: null,
+                    options: ["Perigoso", "Seguro", "Desconhecido", "Fechado"],
+                    answer: 1,
+                    explanation: "Solução: Como quem falou diz apenas a verdade, o caminho A é realmente seguro."
+                },
+                {
+                    quote: "Operação combinada com lógica!",
+                    question: "Um reservatório tem 100 litros. Uma torneira coloca 10 litros por minuto e um dreno retira 2 litros por minuto. Em quanto tempo o reservatório enche?",
+                    extra: "Ganho líquido = 10 - 2 = 8 litros por minuto.",
+                    options: ["10 minutos", "12.5 minutos", "15 minutos", "20 minutos"],
+                    answer: 1,
+                    explanation: "Solução: 100 ÷ (10 - 2) = 100 ÷ 8 = 12,5 minutos."
+                },
+                {
+                    quote: "Inversão de posição na fila!",
+                    question: "Em uma fila de 20 tanques, o seu é o 5º contando do início. Qual é a posição dele contando do final para o início?",
+                    extra: "Fórmula: Total - Posição + 1",
+                    options: ["15º lugar", "16º lugar", "17º lugar", "14º lugar"],
+                    answer: 1,
+                    explanation: "Solução: 20 - 5 + 1 = 16ª posição vindo do final."
+                },
+                {
+                    quote: "Equivalência de condicional!",
+                    question: "A frase 'Se faz sol, vou caminhar' é equivalente a qual afirmação?",
+                    extra: "Contrapositiva: Se NÃO vou caminhar, então NÃO faz sol.",
+                    options: [
+                        "Se não vou caminhar, não faz sol.",
+                        "Se vou caminhar, faz sol.",
+                        "Se não faz sol, vou caminhar.",
+                        "Sempre faz sol."
+                    ],
+                    answer: 0,
+                    explanation: "Solução: A regra da contrapositiva inverte e nega ambas as partes."
+                },
+                {
+                    quote: "Análise de frações de apoio!",
+                    question: "De 60 pessoas em uma sala, 1/3 são jornalistas e o restante são assessores. Quantos são assessores?",
+                    extra: null,
+                    options: ["20 assessores", "30 assessores", "40 assessores", "45 assessores"],
+                    answer: 2,
+                    explanation: "Solução: 1/3 de 60 = 20 jornalistas. O restante é 60 - 20 = 40 assessores."
+                },
+                {
+                    quote: "Dias da semana com salto no tempo!",
+                    question: "Se anteontem foi quarta-feira, que dia será depois de amanhã?",
+                    extra: "Descubra que dia é HOJE primeiro.",
+                    options: ["Sábado", "Domingo", "Segunda-feira", "Terça-feira"],
+                    answer: 1,
+                    explanation: "Solução: Se anteontem foi quarta, ontem foi quinta e HOJE é sexta. Amanhã será sábado e depois de amanhã será domingo!"
+                },
+                {
+                    quote: "Contagem de apertos de mão no Gabinete!",
+                    question: "3 ministros se cumprimentam com um aperto de mão cada um entre si. Quantos apertos de mão foram dados no total?",
+                    extra: null,
+                    options: ["2 apertos", "3 apertos", "6 apertos", "4 apertos"],
+                    answer: 1,
+                    explanation: "Solução: O 1º cumprimenta os outros 2 (2 apertos). O 2º cumprimenta o 3º (1 aperto). Total = 2 + 1 = 3 apertos."
+                },
+                {
+                    quote: "Desafio final do Nível Comandante!",
+                    question: "Se A é maior que B, e B é maior que C, qual afirmação é com certeza VERDADEIRA?",
+                    extra: null,
+                    options: ["C é maior que A", "A é maior que C", "A é igual a C", "B é igual a A"],
+                    answer: 1,
+                    explanation: "Solução: Por transitividade, se A > B e B > C, então A é com certeza maior que C!"
+                }
+            ]
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            screenSelect = document.getElementById('screen-select');
+            screenQuiz = document.getElementById('screen-quiz');
+            screenResults = document.getElementById('screen-results');
+
+            levelBadge = document.getElementById('level-badge');
+            questionProgress = document.getElementById('question-progress');
+            livesContainer = document.getElementById('lives-container');
+            timerText = document.getElementById('timer-text');
+            scoreText = document.getElementById('score-text');
+            comboBadge = document.getElementById('combo-badge');
+
+            bolsonaroAvatar = document.getElementById('bolsonaro-avatar');
+            bolsonaroQuote = document.getElementById('bolsonaro-quote');
+            questionText = document.getElementById('question-text');
+            questionExtra = document.getElementById('question-extra');
+            optionsContainer = document.getElementById('options-container');
+
+            hintBtn = document.getElementById('hint-btn');
+            hintCount = document.getElementById('hint-count');
+            feedbackBox = document.getElementById('feedback-box');
+            nextBtn = document.getElementById('next-btn');
+        });
+
+        function startGame(level) {
+            currentLevel = level;
+            currentQuestionIndex = 0;
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            lives = 4; // Aumentado para 4 vidas
+            hintsLeft = 2; // Aumentado para 2 dicas por jogo
+
+            // Configurar Badge do Nível
+            if (level === 'facil') {
+                levelBadge.textContent = 'Nível Recruta';
+                levelBadge.className = 'px-2.5 py-1 rounded-full font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
+            } else if (level === 'medio') {
+                levelBadge.textContent = 'Nível Capitão';
+                levelBadge.className = 'px-2.5 py-1 rounded-full font-bold uppercase bg-yellow-500/20 text-yellow-400 border border-yellow-500/40';
+            } else {
+                levelBadge.textContent = 'Nível Comandante';
+                levelBadge.className = 'px-2.5 py-1 rounded-full font-bold uppercase bg-red-500/20 text-red-400 border border-red-500/40';
+            }
+
+            screenSelect.classList.add('hidden');
+            screenResults.classList.add('hidden');
+            screenQuiz.classList.remove('hidden');
+
+            updateLivesDisplay();
+            loadQuestion();
+        }
+
+        function updateLivesDisplay() {
+            livesContainer.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                if (i < lives) {
+                    livesContainer.innerHTML += '<i class="fa-solid fa-heart text-red-500"></i>';
+                } else {
+                    livesContainer.innerHTML += '<i class="fa-regular fa-heart text-slate-600"></i>';
+                }
+            }
+        }
+
+        function loadQuestion() {
+            clearInterval(timerInterval);
+            answered = false;
+            feedbackBox.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            hintBtn.disabled = hintsLeft <= 0;
+            hintCount.textContent = hintsLeft;
+
+            const questions = questionsDatabase[currentLevel];
+            const q = questions[currentQuestionIndex];
+
+            // Progresso
+            questionProgress.textContent = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+            scoreText.textContent = score;
+
+            // Avatar & Falas
+            bolsonaroAvatar.src = AVATARS.neutral;
+            bolsonaroQuote.textContent = `"${q.quote}"`;
+
+            // Enunciado
+            questionText.textContent = q.question;
+            if (q.extra) {
+                questionExtra.textContent = q.extra;
+                questionExtra.classList.remove('hidden');
+            } else {
+                questionExtra.classList.add('hidden');
+            }
+
+            // Opções
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-action text-left p-3.5 sm:p-4 rounded-xl border border-slate-700 bg-slate-900/90 hover:bg-slate-750 hover:border-slate-500 transition-all font-medium flex items-center justify-between text-slate-200 text-xs sm:text-sm';
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-800 flex items-center justify-center text-xs font-black text-yellow-400 border border-slate-700">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span>${opt}</span>
+                    </div>
+                    <i class="fa-regular fa-circle text-slate-600"></i>
+                `;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Timer facilitado: 45s Fácil, 35s Médio, 30s Difícil
+            timeLeft = currentLevel === 'facil' ? 45 : currentLevel === 'medio' ? 35 : 30;
+            timerText.textContent = `${timeLeft}s`;
+            timerText.classList.remove('timer-warning');
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerText.textContent = `${timeLeft}s`;
+
+                if (timeLeft <= 5) {
+                    timerText.classList.add('timer-warning');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function selectOption(selectedIndex, selectedBtn) {
+            if (answered) return;
+            answered = true;
+            clearInterval(timerInterval);
+
+            const q = questionsDatabase[currentLevel][currentQuestionIndex];
+            const buttons = optionsContainer.children;
+
+            if (selectedIndex === q.answer) {
+                // ACERTO
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+
+                const pointsToAdd = 100 + (combo > 1 ? combo * 20 : 0);
+                score += pointsToAdd;
+                scoreText.textContent = score;
+
+                if (combo > 1) {
+                    comboBadge.textContent = `${combo}x COMBO!`;
+                    comboBadge.classList.remove('hidden');
+                }
+
+                selectedBtn.className = 'text-left p-3.5 sm:p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/50 font-semibold flex items-center justify-between text-emerald-200 text-xs sm:text-sm';
+                selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400 text-lg sm:text-xl';
+
+                bolsonaroAvatar.src = AVATARS.happy;
+                bolsonaroQuote.textContent = '"Excelente raciocínio, patriota! Resposta perfeita, tá ok?"';
+
+                feedbackBox.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-900/40 border border-emerald-500/50 text-emerald-200';
+                feedbackBox.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> <strong>Correto!</strong> ${q.explanation}`;
+            } else {
+                // ERRO
+                combo = 0;
+                comboBadge.classList.add('hidden');
+                lives--;
+                updateLivesDisplay();
+
+                selectedBtn.className = 'text-left p-3.5 sm:p-4 rounded-xl border-2 border-red-500 bg-red-950/50 font-semibold flex items-center justify-between text-red-200 text-xs sm:text-sm';
+                selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-red-400 text-lg sm:text-xl';
+
+                // Revelar Correta
+                const correctBtn = buttons[q.answer];
+                correctBtn.className = 'text-left p-3.5 sm:p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/50 font-semibold flex items-center justify-between text-emerald-200 text-xs sm:text-sm';
+                correctBtn.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400 text-lg sm:text-xl';
+
+                bolsonaroAvatar.src = AVATARS.shocked;
+                bolsonaroQuote.textContent = '"Poxa vida, noossa senhora! Presta atenção na explicação lógica abaixo!"';
+
+                feedbackBox.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-semibold bg-red-900/40 border border-red-500/50 text-red-200';
+                feedbackBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-400 mr-1.5"></i> <strong>Incorreto!</strong> ${q.explanation}`;
+            }
+
+            feedbackBox.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+
+            if (lives <= 0) {
+                setTimeout(showResults, 2000);
+            }
+        }
+
+        function handleTimeout() {
+            if (answered) return;
+            answered = true;
+
+            combo = 0;
+            comboBadge.classList.add('hidden');
+            lives--;
+            updateLivesDisplay();
+
+            const q = questionsDatabase[currentLevel][currentQuestionIndex];
+            const buttons = optionsContainer.children;
+
+            const correctBtn = buttons[q.answer];
+            correctBtn.className = 'text-left p-3.5 sm:p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/50 font-semibold flex items-center justify-between text-emerald-200 text-xs sm:text-sm';
+            correctBtn.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400 text-lg sm:text-xl';
+
+            bolsonaroAvatar.src = AVATARS.shocked;
+            bolsonaroQuote.textContent = '"O tempo acabou, tá ok? O raciocínio precisa ser rápido no quartel!"';
+
+            feedbackBox.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-semibold bg-yellow-900/40 border border-yellow-500/50 text-yellow-200';
+            feedbackBox.innerHTML = `<i class="fa-solid fa-clock text-yellow-400 mr-1.5"></i> <strong>Tempo Esgotado!</strong> ${q.explanation}`;
+
+            feedbackBox.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+
+            if (lives <= 0) {
+                setTimeout(showResults, 2500);
+            }
+        }
+
+        function useHint() {
+            if (hintsLeft <= 0 || answered) return;
+            hintsLeft--;
+            hintCount.textContent = hintsLeft;
+            hintBtn.disabled = true;
+
+            const q = questionsDatabase[currentLevel][currentQuestionIndex];
+            const buttons = optionsContainer.children;
+
+            // Elimina uma opção errada
+            let wrongIndex = -1;
+            do {
+                wrongIndex = Math.floor(Math.random() * q.options.length);
+            } while (wrongIndex === q.answer);
+
+            buttons[wrongIndex].style.opacity = '0.3';
+            buttons[wrongIndex].onclick = null;
+            buttons[wrongIndex].querySelector('i').className = 'fa-solid fa-ban text-slate-500';
+
+            bolsonaroQuote.textContent = '"Dica liberada! Cancelei uma das alternativas erradas para te ajudar!"';
+        }
+
+        function nextQuestion() {
+            const questions = questionsDatabase[currentLevel];
+            if (currentQuestionIndex < questions.length - 1 && lives > 0) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            clearInterval(timerInterval);
+            screenQuiz.classList.add('hidden');
+            screenResults.classList.remove('hidden');
+
+            const totalQuestions = questionsDatabase[currentLevel].length;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-stats').textContent = `Maior Combo: ${maxCombo}x • Vidas Restantes: ${lives}/4`;
+
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultSubtitle = document.getElementById('result-subtitle');
+            const rankBadge = document.getElementById('rank-badge');
+
+            if (lives <= 0) {
+                resultIcon.textContent = '❌';
+                resultTitle.textContent = 'Game Over / Baixa no Pelotão';
+                resultSubtitle.textContent = 'Suas vidas acabaram durante o teste. Treine mais o raciocínio e tente novamente!';
+                rankBadge.textContent = 'Patriota em Treinamento';
+                rankBadge.className = 'inline-block bg-red-500/20 border border-red-500/40 text-red-300 font-extrabold text-xs px-4 py-2 rounded-full mb-6';
+            } else if (score >= 800) {
+                resultIcon.textContent = '🎖️';
+                resultTitle.textContent = 'Estrategista de Elite!';
+                resultSubtitle.textContent = 'Você dominou o teste de raciocínio com louvor pátrio e velocidade impressionante!';
+                rankBadge.textContent = 'Comandante de Alto Raciocínio Lógico';
+                rankBadge.className = 'inline-block bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 font-extrabold text-xs px-4 py-2 rounded-full mb-6';
+            } else {
+                resultIcon.textContent = '🥉';
+                resultTitle.textContent = 'Missão Concluída!';
+                resultSubtitle.textContent = 'Bom trabalho no cumprimento do dever, tá ok? Continue praticando para obter pontuação máxima.';
+                rankBadge.textContent = 'Oficial do Raciocínio Lógico';
+                rankBadge.className = 'inline-block bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs px-4 py-2 rounded-full mb-6';
+            }
+        }
+
+        function retryLevel() {
+            startGame(currentLevel);
+        }
+
+        function resetGame() {
+            clearInterval(timerInterval);
+            screenResults.classList.add('hidden');
+            screenQuiz.classList.add('hidden');
+            screenSelect.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
